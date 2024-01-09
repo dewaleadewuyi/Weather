@@ -3,7 +3,35 @@ const card = document.querySelector('.card');
 const details = document.querySelector('.details');
 const time = document.querySelector('img.time');
 const icon = document.querySelector('.icon img');
+const userInput = document.querySelector("#move");
+const resultBox = document.querySelector("#result-box");
 
+
+// Logic for autocomplete search
+const renderChildEl = async function (e) {
+    let searchText = !!e ? e.target.value : '';
+    if (searchText.length == 0) {
+        resultBox.innerHTML = '';
+        e.stopPropagation();
+        return;
+    }
+
+    const suggestions = await getSuggestions(searchText);
+
+    if (suggestions.length > 0) {
+        const suggestionList = suggestions.map(suggestion => `<li onclick = selectInput(this)>${suggestion.LocalizedName}</li>`).join('');
+        resultBox.innerHTML = `<ul>${suggestionList}</ul>`;
+    } else {
+        resultBox.innerHTML = '<p>Wrong Location</p>';
+    }
+}
+userInput.addEventListener('keyup', renderChildEl);
+
+// To clear result box
+function selectInput(list) {
+    userInput.value = list.innerHTML;
+    resultBox.innerHTML = '';
+}
 
 // Updater to DOM  (3)
 const updateUI = (data) => {
@@ -11,7 +39,7 @@ const updateUI = (data) => {
     // destructure properties
     const { cityDets, weather } = data;
 
-    console.log(data)
+    //console.log(data)
 
     // update detail template
     details.innerHTML = `
@@ -65,4 +93,13 @@ cityForm.addEventListener('submit', e => {
     updateCity(city)
         .then(data => updateUI(data))
         .catch(err => console.log(err))
+
+    // Storing data in Local Storage
+    localStorage.setItem('city', city)
 });
+
+// if (localStorage.getItem('city')) {
+//     updateCity(localStorage.getItem('city'))
+//         .then(data => updateUI(data))
+//         .catch(err => console.log(err))
+// };

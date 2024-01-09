@@ -5,11 +5,11 @@ body {
 }
 
 .container {
-    max-width: fit-content;
+    max-width: 500px;
 
 }
 
-form .move {
+form #move {
     margin-top: 10px;
 }
 
@@ -26,5 +26,54 @@ form .move {
 }
 
 button {
-    margin: 20px;
+    margin: 10px 0 0 7px;
+    cursor: pointer;
+    width: 60px;
+    height: 40px;
+}
+
+.overall {
+    display: flex;
+
+}
+
+.overall div:nth-of-type(1) {
+    flex-grow: 3;
+}
+
+::placeholder {
+    color: #555;
+}
+
+
+/* New */
+
+#result-box {
+    width: 410px;
+    background: #fff;
+    margin-top: 0px;
+    border-radius: 5px;
+}
+
+#result-box ul {
+    border-top: 1.5px solid #999;
+    padding: 15px 10px;
+}
+
+#result-box ul li {
+    list-style: none;
+    border-radius: 3px;
+    padding: 10px 10px;
+    cursor: pointer;
+    text-align: left;
+
+}
+
+#result-box ul li:hover {
+    background: #e9f3ff;
+}
+
+.result-box {
+    max-height: 300px;
+    overflow-y: scroll;
 }

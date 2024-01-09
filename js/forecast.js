@@ -1,6 +1,6 @@
 // Get a reference to the city and the get the weather condition the city
 
-const key = 'P2sWY92l5fc5nABf7aFUtdzGqYKAiuSo';
+const key = 'Sla0YGm9VFS1VtoOCdfNgDOAzUznrd4Z';
 
 // getting weather info
 const getWeather = async (id) => {
@@ -24,3 +24,16 @@ const getCity = async (city) => {
     return data[0];
 };
 
+// Autocomplete
+
+
+// Function to get autocomplete suggestions
+const getSuggestions = async (query) => {
+
+    const base = 'https://dataservice.accuweather.com/locations/v1/cities/autocomplete';
+
+    const response = await fetch(`${base}?apikey=${key}&q=${query}`);
+    const data = await response.json();
+
+    return data;
+};
